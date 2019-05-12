@@ -1,2 +1,2 @@
 # Credit_Scoring
- Own Project Capstone Data Sciencr Harvard
+ Own Project Capstone Data Science Harvard
