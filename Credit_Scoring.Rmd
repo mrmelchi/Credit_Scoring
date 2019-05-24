@@ -142,7 +142,7 @@ The data were provided by the bank. The data were obtained from the Credit Infor
 
 This selection was made in T0 (Figure 1). The variables, depending to type (stock in T0 or flow through T-12 to T0), were compute from T-12 to T0. On T+12 was compute if the debtors reclassified or non-reclasified.
 
-The debtors reclassified represent 16.42% of total. For more information about data to try [cook book](http://rpubs.com/mrmelchi/496179).
+The debtors reclassified represent 16.42% of total. For more information about data to try [**cook book**](http://rpubs.com/mrmelchi/496179).
 
 ```{r}
 # load data
@@ -301,7 +301,8 @@ result$ivtable
 
 # Results
 
-On test set, with a cutoff of **569 points** the model reach a **0.3381** approval rate and **0.0408** reclassified rate. 
+On test set, with a cutoff of **569 points** the model reach a **0.3381** approval rate and **0.0408** reclassified rate.
+
 Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is **0.7873**, KS statistic is **0.4486** and Gini statistic is **0.5745**.
 
 ```{r fig.cap="Figure 3.Statistical measures of discriminatory power", out.width = '90%'}
@@ -328,6 +329,8 @@ PSI in our case is **0.007**.
 ```{r fig.cap="Figure 5. Results", out.width = '90%'}
 knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/summary.png")
 ```
+
+A standardized Report from scorecard package is available [**here**]. It contains more information, summary glm model, gain tables,  between others.
 
 # Summary
 
