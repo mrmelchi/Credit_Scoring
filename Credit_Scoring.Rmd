@@ -129,7 +129,7 @@ source.https("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/s
 # Data
 
 ```{r fig.cap="Figure 1.Utilising Historical Data to Predict Future Outcomes", out.width = '90%'}
-knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/Captura.PNG")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/Captura.PNG")
 ```
 
 The data were provided by the bank. The data were obtained from the Credit Information Data Base, which includes all debtors with the Argentine financial system. A filtering process was carried out in order to work with the target market, that is, human persons employed by the state government where the bank operates. With that target the bank only chose, in T0 (Figure 1), those debtors whose classification differs from theirs, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:  
@@ -280,7 +280,7 @@ Luckily R has several packages to compute WOE and Information Value (IV). In thi
 This package uses *Supervised Discretization* that divides a continuous feature into groups (bins) mapped to a target variable. The central idea is to find those cutpoints that maximize the difference between the groups. In the past, analysts used to iteratively move from Fine Binning [^7] to Coarse Binning [^8], a very time consuming process of finding manually and visually the right cutpoints (if ever). Nowadays with algorithms like ChiMerge or Recursive Partitioning, two out of several techniques available, analysts can quickly find the optimal cutpoints in seconds and evaluate the relationship with the target variable using metrics such as Weight of Evidence and Information Value.
 
 ```{r fig.cap="Figure 2. Variable Predictiveness Power", out.width = '90%'}
-knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/SelectionVariates.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/SelectionVariates.png")
 ```
 
 [^7]: <sub> Create 10/20 bins/groups for a continuous independent variable and then calculates WOE and IV of the variable.
@@ -301,11 +301,11 @@ result$ivtable
 
 # Results
 
-On test set, with a cutoff of 569 points the model reach a 0.3381 approval rate and 0.0408 reclassified rate. 
-Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is 0.7873, KS statistic is 0.4486 and Gini statistic is 0.5745.
+On test set, with a cutoff of **569 points** the model reach a **0.3381** approval rate and **0.0408** reclassified rate. 
+Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is **0.7873**, KS statistic is **0.4486** and Gini statistic is **0.5745**.
 
 ```{r fig.cap="Figure 3.Statistical measures of discriminatory power", out.width = '90%'}
-knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/ROC_KS.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/ROC_KS.png")
 ```
 
 Also we conducted goodness-of-fit test, the result of Hosmer-Lemeshow Chi-square test and Spiegelhalter test suggest that according to the p-values, the estimated reclassified rate are quite close to the observed reclassified rate.
@@ -320,13 +320,13 @@ PSI %>% knitr::kable()
 ```
 
 ```{r fig.cap="Figure 4. Population Stability Index (PSI)", out.width = '90%'}
-knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/PSI.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/PSI.png")
 ```
 
-PSI in our case is 0.007.
+PSI in our case is **0.007**.
 
 ```{r fig.cap="Figure 5. Results", out.width = '90%'}
-knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/summary.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/summary.png")
 ```
 
 # Summary
@@ -335,13 +335,13 @@ A  bank is active in the loans with repayment through payroll deductions a emplo
 
 The bank requiered us to design a model that predict if a debtor will be reclassified durant the next year. 
 
-The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than 0.045, but allowing high approval rate.
+The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than **0.045**, but allowing high approval rate.
 
 The data were provided by the bank. The bank only chose  those debtors whose classification differs from their, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations. In short, data do not contains debtors that paying in time and form theirs debts in all financial system argentine neither debtors reclassified in T0 (Figure 1).
 
 In this project we using logistic regression, Weight of evidence (WOE) and Information value (IV) but by changing the variable to predict, in this case is other than "default" like in most of credit risk model, instead, a new concept labeled "reclassified" is employed.
 
-We find out a cutoff of 569 points, on test set the model reach a 0.3381 approval rate and 0.0408 reclassified rate. Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is 0.7873, KS statistic is 0.4486 and Gini statistic is 0.5745. 
+We find out a cutoff of **569 points**, on test set the model reach a **0.3381** approval rate and 0.0408 reclassified rate. Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is **0.7873**, KS statistic is **0.4486** and Gini statistic is **0.5745**. 
 
 The result of Hosmer-Lemeshow Chi-square test and Spiegelhalter test suggest that according to the p-values, the estimated reclassified rate from the model are quite close to the observed reclassified rate.
 
