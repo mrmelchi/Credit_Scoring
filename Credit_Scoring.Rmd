@@ -330,7 +330,8 @@ PSI in our case is **0.007**.
 knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/images/summary.png")
 ```
 
-A standardized Report from scorecard package is available [**here**]. It contains more information, summary glm model, gain tables,  between others.
+
+**A standardized Report from scorecard package is available [**here**](https://github.com/mrmelchi/Credit_Scoring/blob/master/report1_20190524_121745.xlsx). It contains dataset information, model coefficients, model performance, variable woe binning, scorecard, population stability and gains table**.
 
 # Summary
 
