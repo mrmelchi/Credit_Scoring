@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 The bank for which we do this work is active in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low. But as we will see in last paragraph of *Debtor classification* section below, it is posible that as only one-level discrepancy is allowed in relation to the information submitted by financial institutions to the Credit Information Data Base, if there is a greater discrepancy between the rating of the bank and the lower classification awarded by at least two other banks, and total loans from such banks account for 40% or more of the total informed, the our bank will be required to reclassify the debtor to at least the level immediately above from registering the highest level of indebtedness with the comparison institutions. In practical terms, the bank will must provisioning even though the debtor is normal on its books
 
-The objetive of this project is pick the variables that predict if a debtor whose classification differs from ours, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:  
+The objetive of this project is pick the variables that predict if a a debtor rated 1 by the bank, is classified differently by another, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:  
 
 - a  discrepancy of two or more notches  between the rating of the bank and the lower classification awarded  
 
@@ -26,7 +26,7 @@ The objetive of this project is pick the variables that predict if a debtor whos
 
 complies them, within the year in which the data was selected.
 
-The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than 0.045, but allowing high approval rate.
+The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than **0.045**, but allowing high approval rate. The reclassified rate on data is **0.1642**.
 
 # Regulations 
 ##  Debtor classification, provisioning and collateral guarantees
@@ -35,7 +35,7 @@ The bank also requires build a score system and pick a cutoff that reach a recla
 Regulations establish guidelines for classifying debtors from the point of view of their credit quality and compliance with their commitments, according to the evaluation performed for that purpose by the financial institution.
 
 - The guidelines vary depending on whether commercial consumer or housing loans are involved.
-Commercial loans of up to 40% of the determined amount (*) may be considered, for classification purposes,
+Commercial loans of up to 40% of the ARS 19,800,000 may be considered, for classification purposes,
 as consumption loans and treated as such at the bank's discretion.  
 
 - Debtors and all their loans are included in one of six categories or situations of decreasing credit quality:
@@ -60,9 +60,9 @@ as consumption loans and treated as such at the bank's discretion.
   
 - Minimum classification frequency: As a general rule, this should be annual. Nevertheless, classification should take place: 
 
-- during the course of each quarter for customers whose debts are equivalent to 5% or more of the financial institution's RC; 
+    - during the course of each quarter for customers whose debts are equivalent to 5% or more of the financial institution's RC; 
 
-- during the course of each half-year term in the case of customers whose debts range from 1% (or the equivalent to the determined amount [^5], whichever is lower) to less than 5% of the financial institution's RC. 
+    - during the course of each half-year term in the case of customers whose debts range from 1% (or the equivalent to the determined amount [^5], whichever is lower) to less than 5% of the financial institution's RC. 
 
 In addition, the bank should review a debtor's situation when any of the following circumstances take place: 
 
@@ -72,7 +72,7 @@ b) when there are changes to any of the objective classification criteria (arrea
       
 c) when there is more than a one-level discrepancy between the classification assigned by the financial institution and at least two other institutions, and certain requirements have been met.
 
-[^5]: <sub> The maximum value of total annual sales for the "micro" category belonging to the "commercial" sector pursuant to the regulations on "Determination of the condition of MiPyMEs" amounts to $ 15,800,000.</sup>
+[^5]: <sub> The maximum value of total annual sales for the "micro" category belonging to the "commercial" sector pursuant to the regulations on "Determination of the condition of MiPyMEs" amounts to ARS 19,800,000.</sup>
 
 Re-appraisal must be carried out promptly in the case of customers with debts totaling 1% or more of the
 financial institution's RPC or the equivalent to the determined amount, whichever is lower.
@@ -115,36 +115,21 @@ immediately above that registering the highest level of indebtedness with the co
 ```{r message = FALSE, warning = TRUE}
 
 # required packages
+if(!require(installr)) install.packages("installr", repos = "http://cran.us.r-project.org")
 if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
-if(!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
-if(!require(Hmisc)) install.packages("Hmisc", repos = "http://cran.us.r-project.org")
-if(!require(doParallel)) install.packages("doParallel", repos = "http://cran.us.r-project.org")
 if(!require(smbinning)) install.packages("smbinning", repos = "http://cran.us.r-project.org")
-if(!require(ResourceSelection)) install.packages("ResourceSelection", repos = "http://cran.us.r-project.org")
-if(!require(devtools)) install.packages("devtools", repos = "http://cran.us.r-project.org")
 if(!require(rlang)) install.packages("rlang", repos = "http://cran.us.r-project.org")
-
-devtools::install_github("shichenxie/scorecard", force = FALSE)
-devtools::install_github("ayhandis/creditR", force = FALSE)
-
-library(tidyverse)
-library(caret)
-library(scorecard)  # creates a scorecard
-source_url("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/smbinning.R")  # Optimal Binning categorizes a numeric characteristic into bins 
-# for ulterior usage in scoring modeling.
-library(doParallel) # Solve 'Error in summary.connection(connection) : invalid connection'
-# https://stackoverflow.com/questions/25097729/un-register-a-doparallel-cluster
-
-library(ResourceSelection) # Compute Hosmer Lemeshow test
-library(Hmisc)             # Compute Gini and ROC index
 library(smbinning)         # compute woe and IV
+library(tidyverse)
+library(installr)
+source.https("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/smbinning.R")  # Optimal Binning categorizes a numeric characteristic into bins 
 
 ```
 
 # Data
 
 ```{r fig.cap="Figure 1.Utilising Historical Data to Predict Future Outcomes", out.width = '90%'}
-knitr::include_graphics("captura.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/Captura.PNG")
 ```
 
 The data were provided by the bank. The data were obtained from the Credit Information Data Base, which includes all debtors with the Argentine financial system. A filtering process was carried out in order to work with the target market, that is, human persons employed by the state government where the bank operates. With that target the bank only chose, in T0 (Figure 1), those debtors whose classification differs from theirs, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:  
@@ -190,7 +175,7 @@ The model is completed through the following steps:
 
 -  Automated optimal Weight-of-Evidence (WOE) and Information Value (IV) binning is executed.
 -  The variates with Information Value (IV) bins with greater power are selected.
--  Transformation all features within the data set so that the new data contains only weight-of-evidence valued transformations.
+-  All features are transformed within the data set so that the new data contains only weight-of-evidence valued transformations.
 -  Models using logistic regression is created.
 -  Credit scorecard is created.
 -  Cutoff that maximize the sensibility, that is the ability of our model to correctly identify those debtors reclassified (true positive rate) but allowing a high the approval rate, is computed.
@@ -295,7 +280,7 @@ Luckily R has several packages to compute WOE and Information Value (IV). In thi
 This package uses *Supervised Discretization* that divides a continuous feature into groups (bins) mapped to a target variable. The central idea is to find those cutpoints that maximize the difference between the groups. In the past, analysts used to iteratively move from Fine Binning [^7] to Coarse Binning [^8], a very time consuming process of finding manually and visually the right cutpoints (if ever). Nowadays with algorithms like ChiMerge or Recursive Partitioning, two out of several techniques available, analysts can quickly find the optimal cutpoints in seconds and evaluate the relationship with the target variable using metrics such as Weight of Evidence and Information Value.
 
 ```{r fig.cap="Figure 2. Variable Predictiveness Power", out.width = '90%'}
-knitr::include_graphics("SelectionVariates.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/SelectionVariates.png")
 ```
 
 [^7]: <sub> Create 10/20 bins/groups for a continuous independent variable and then calculates WOE and IV of the variable.
@@ -320,7 +305,7 @@ On test set, with a cutoff of 569 points the model reach a 0.3381 approval rate 
 Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is 0.7873, KS statistic is 0.4486 and Gini statistic is 0.5745.
 
 ```{r fig.cap="Figure 3.Statistical measures of discriminatory power", out.width = '90%'}
-knitr::include_graphics("ROC_KS.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/ROC_KS.png")
 ```
 
 Also we conducted goodness-of-fit test, the result of Hosmer-Lemeshow Chi-square test and Spiegelhalter test suggest that according to the p-values, the estimated reclassified rate are quite close to the observed reclassified rate.
@@ -335,13 +320,13 @@ PSI %>% knitr::kable()
 ```
 
 ```{r fig.cap="Figure 4. Population Stability Index (PSI)", out.width = '90%'}
-knitr::include_graphics("PSI.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/PSI.png")
 ```
 
 PSI in our case is 0.007.
 
 ```{r fig.cap="Figure 5. Results", out.width = '90%'}
-knitr::include_graphics("summary.png")
+knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/summary.png")
 ```
 
 # Summary
@@ -359,4 +344,26 @@ In this project we using logistic regression, Weight of evidence (WOE) and Infor
 We find out a cutoff of 569 points, on test set the model reach a 0.3381 approval rate and 0.0408 reclassified rate. Statistical measures of discriminatory power would be considered to be "good" at separating reclassified from nom-reclassified debtors. ROC curve is 0.7873, KS statistic is 0.4486 and Gini statistic is 0.5745. 
 
 The result of Hosmer-Lemeshow Chi-square test and Spiegelhalter test suggest that according to the p-values, the estimated reclassified rate from the model are quite close to the observed reclassified rate.
+
+The bank has the model in production.
+
+
+# References
+
+[Introduction to Data Science, Data Analysis and Prediction Algorithms with R
+Rafael A. Irizarry 2019-04-22](https://rafalab.github.io/dsbook/)
+
+[Weight of evidence -WOE- and information value -IV- explained](https://www.listendata.com/2015/03/weight-of-evidence-woe-and-information.html)
+
+[The Hosmer-Lemeshow goodness of fit test for logistic regression](http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/)
+
+[Credit Scoring Model Validation, Master Thesis, June 29, 2008, Xuezhen Wu](https://esc.fnwi.uva.nl/thesis/centraal/files/f1668180724.pdf)
+
+[Credit Scoring: The complete box set!](https://www.worldprogramming.com/blog/credit_scoring_box_set)
+
+[Herman Jopia (2019). smbinning: Scoring Modeling and Optimal Binning. R package version 0.9.](https://CRAN.R-project.org/package=smbinning)
+
+[Shichen Xie (2019). scorecard: Credit Risk Scorecard. R package version 0.2.4.](https://CRAN.R-project.org/package=scorecard)
+
+
 

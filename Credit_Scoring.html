@@ -384,14 +384,14 @@ $(document).ready(function () {
 <div id="objetives" class="section level1">
 <h1>Objetives</h1>
 <p>The bank for which we do this work is active in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low. But as we will see in last paragraph of <em>Debtor classification</em> section below, it is posible that as only one-level discrepancy is allowed in relation to the information submitted by financial institutions to the Credit Information Data Base, if there is a greater discrepancy between the rating of the bank and the lower classification awarded by at least two other banks, and total loans from such banks account for 40% or more of the total informed, the our bank will be required to reclassify the debtor to at least the level immediately above from registering the highest level of indebtedness with the comparison institutions. In practical terms, the bank will must provisioning even though the debtor is normal on its books</p>
-<p>The objetive of this project is pick the variables that predict if a debtor whose classification differs from ours, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:</p>
+<p>The objetive of this project is pick the variables that predict if a a debtor rated 1 by the bank, is classified differently by another, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations:</p>
 <ul>
 <li><p>a discrepancy of two or more notches between the rating of the bank and the lower classification awarded</p></li>
 <li><p>by at least two other banks, and</p></li>
 <li><p>the total loans from such banks account for 40% or more of the total informed,</p></li>
 </ul>
 <p>complies them, within the year in which the data was selected.</p>
-<p>The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than 0.045, but allowing high approval rate.</p>
+<p>The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than <strong>0.045</strong>, but allowing high approval rate. The reclassified rate on data is <strong>0.1642</strong>.</p>
 </div>
 <div id="regulations" class="section level1">
 <h1>Regulations</h1>
@@ -401,7 +401,7 @@ $(document).ready(function () {
 <h3>Debtor classification</h3>
 <p>Regulations establish guidelines for classifying debtors from the point of view of their credit quality and compliance with their commitments, according to the evaluation performed for that purpose by the financial institution.</p>
 <ul>
-<li><p>The guidelines vary depending on whether commercial consumer or housing loans are involved. Commercial loans of up to 40% of the determined amount (*) may be considered, for classification purposes, as consumption loans and treated as such at the bank’s discretion.</p></li>
+<li><p>The guidelines vary depending on whether commercial consumer or housing loans are involved. Commercial loans of up to 40% of the ARS 19,800,000 may be considered, for classification purposes, as consumption loans and treated as such at the bank’s discretion.</p></li>
 <li><p>Debtors and all their loans are included in one of six categories or situations of decreasing credit quality:</p></li>
 </ul>
 <table>
@@ -448,9 +448,11 @@ $(document).ready(function () {
 <ul>
 <li><p>The basic criterion for evaluation is the repayment capacity in relation to the debt or the commitments that are the object of the financial institution guarantee. For the commercial portfolio, evaluation is made on the basis of repayment capacity and debtor cash flows, and in the case of consumer and housing loans it is based on debt payment compliance and the legal status of the debtor. Indicators used in the case of commercial loans include liquidity, financing structure, compliance with payment of obligations, quality of management and administration, IT systems, prospects for the customer’s business sector, its position within the sector, its legal standing and the existence of refinancing or debt discounts. The evaluation criteria for the consumer and housing portfolios is exclusively objective - the degree of compliance with obligations and the legal situation of the debtor.</p></li>
 <li><p>When loans are fully collateralized by preferred class A collateral, evaluation of repayment capacity is not required.</p></li>
-<li><p>Minimum classification frequency: As a general rule, this should be annual. Nevertheless, classification should take place:</p></li>
+<li><p>Minimum classification frequency: As a general rule, this should be annual. Nevertheless, classification should take place:</p>
+<ul>
 <li><p>during the course of each quarter for customers whose debts are equivalent to 5% or more of the financial institution’s RC;</p></li>
 <li><p>during the course of each half-year term in the case of customers whose debts range from 1% (or the equivalent to the determined amount <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, whichever is lower) to less than 5% of the financial institution’s RC.</p></li>
+</ul></li>
 </ul>
 <p>In addition, the bank should review a debtor’s situation when any of the following circumstances take place:</p>
 <ol style="list-style-type: lower-alpha">
@@ -565,7 +567,7 @@ Figure 1.Utilising Historical Data to Predict Future Outcomes
 <ul>
 <li>Automated optimal Weight-of-Evidence (WOE) and Information Value (IV) binning is executed.</li>
 <li>The variates with Information Value (IV) bins with greater power are selected.</li>
-<li>Transformation all features within the data set so that the new data contains only weight-of-evidence valued transformations.</li>
+<li>All features are transformed within the data set so that the new data contains only weight-of-evidence valued transformations.</li>
 <li>Models using logistic regression is created.</li>
 <li>Credit scorecard is created.</li>
 <li>Cutoff that maximize the sensibility, that is the ability of our model to correctly identify those debtors reclassified (true positive rate) but allowing a high the approval rate, is computed.</li>
@@ -767,6 +769,17 @@ Figure 5. Results
 <p>In this project we using logistic regression, Weight of evidence (WOE) and Information value (IV) but by changing the variable to predict, in this case is other than “default” like in most of credit risk model, instead, a new concept labeled “reclassified” is employed.</p>
 <p>We find out a cutoff of 569 points, on test set the model reach a 0.3381 approval rate and 0.0408 reclassified rate. Statistical measures of discriminatory power would be considered to be “good” at separating reclassified from nom-reclassified debtors. ROC curve is 0.7873, KS statistic is 0.4486 and Gini statistic is 0.5745.</p>
 <p>The result of Hosmer-Lemeshow Chi-square test and Spiegelhalter test suggest that according to the p-values, the estimated reclassified rate from the model are quite close to the observed reclassified rate.</p>
+<p>The bank has the model in production.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p><a href="https://rafalab.github.io/dsbook/">Introduction to Data Science, Data Analysis and Prediction Algorithms with R Rafael A. Irizarry 2019-04-22</a></p>
+<p><a href="https://www.listendata.com/2015/03/weight-of-evidence-woe-and-information.html">Weight of evidence -WOE- and information value -IV- explained</a></p>
+<p><a href="http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/">The Hosmer-Lemeshow goodness of fit test for logistic regression</a></p>
+<p><a href="https://esc.fnwi.uva.nl/thesis/centraal/files/f1668180724.pdf">Credit Scoring Model Validation, Master Thesis, June 29, 2008, Xuezhen Wu</a></p>
+<p><a href="https://www.worldprogramming.com/blog/credit_scoring_box_set">Credit Scoring: The complete box set!</a></p>
+<p><a href="https://CRAN.R-project.org/package=smbinning">Herman Jopia (2019). smbinning: Scoring Modeling and Optimal Binning. R package version 0.9.</a></p>
+<p><a href="https://CRAN.R-project.org/package=scorecard">Shichen Xie (2019). scorecard: Credit Risk Scorecard. R package version 0.2.4.</a></p>
 </div>
 <div class="footnotes">
 <hr />
@@ -775,7 +788,7 @@ Figure 5. Results
 <li id="fn2"><p><sub> Commercial loans in situation 2 are divided into: a) under observation, include those debtors up to 90 days past due in situations that if not controlled or corrected in a timely manner, could compromise their repayment capacity, and b) those under negotiation or with refinancing agreements, which include debtors that although unable to pay their obligations under the agreed conditions, have declared their intention of refinancing their debts no later than 60 days after becoming past due.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p><sub> This category includes debtors that have filed for creditor protection or an out-of-court preventive measure, or for which payment has been demanded in court. In the case of the consumer portfolio, debtors that have filed for creditor protection or are covered by out-of-court measures can record arrears of up to 540 days.<a href="#fnref3" class="footnote-back">↩</a></p></li>
 <li id="fn4"><p><sub> This category includes debtors with arrears in excess of 180 days that are customers of banks that have been wound up or had their license revoked by the BCRA, residual entities of privatized banks, or trusts of which SEDESA is a beneficiary.</sup><a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p><sub> The maximum value of total annual sales for the “micro” category belonging to the “commercial” sector pursuant to the regulations on “Determination of the condition of MiPyMEs” amounts to $ 15,800,000.</sup><a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p><sub> The maximum value of total annual sales for the “micro” category belonging to the “commercial” sector pursuant to the regulations on “Determination of the condition of MiPyMEs” amounts to ARS 19,800,000.</sup><a href="#fnref5" class="footnote-back">↩</a></p></li>
 <li id="fn6"><p><sub> Credit Risk Scorecards: Developing and Implementing Intelligent Credit Scoring by Naeem Siddiqi, John Wiley and Sons, Sep 1, 2015</sup><a href="#fnref6" class="footnote-back">↩</a></p></li>
 <li id="fn7"><p><sub> Create 10/20 bins/groups for a continuous independent variable and then calculates WOE and IV of the variable.<a href="#fnref7" class="footnote-back">↩</a></p></li>
 <li id="fn8"><p><sub> Combine adjacent categories with similar WOE scores.</sup><a href="#fnref8" class="footnote-back">↩</a></p></li>

@@ -1,3 +1,15 @@
+remove.packages("Hmisc", lib="~/R/win-library/3.5")
+remove.packages("installr", lib="~/R/win-library/3.5")
+remove.packages("tidyverse", lib="~/R/win-library/3.5")
+remove.packages("rlang", lib="~/R/win-library/3.5")
+remove.packages("doParallel", lib="~/R/win-library/3.5")
+remove.packages("ResourceSelection", lib="~/R/win-library/3.5")
+remove.packages("devtools", lib="~/R/win-library/3.5")
+remove.packages("smbinning", lib="~/R/win-library/3.5")
+remove.packages("scorecard", lib="~/R/win-library/3.5")
+remove.packages("e1071", lib="~/R/win-library/3.5")
+remove.packages("glmnet", lib="~/R/win-library/3.5")
+
 ########################################################################################################
 #                                        Summary
 ########################################################################################################
@@ -33,23 +45,26 @@
 ########################################################################################################
 
 # required packages
+if(!require(installr)) install.packages("installr", repos = "http://cran.us.r-project.org")
 if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 if(!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
+if(!require(glmnet)) install.packages("glmnet", repos = "http://cran.us.r-project.org")
+if(!require(e1071)) install.packages("e1071", repos = "http://cran.us.r-project.org")
 if(!require(Hmisc)) install.packages("Hmisc", repos = "http://cran.us.r-project.org")
 if(!require(doParallel)) install.packages("doParallel", repos = "http://cran.us.r-project.org")
 if(!require(ResourceSelection)) install.packages("ResourceSelection", repos = "http://cran.us.r-project.org")
-if(!require(devtools)) install.packages("devtools", repos = "http://cran.us.r-project.org")
 if(!require(rlang)) install.packages("rlang", repos = "http://cran.us.r-project.org")
 if(!require(smbinning)) install.packages("smbinning", repos = "http://cran.us.r-project.org")
-devtools::install_github("shichenxie/scorecard", force = FALSE)
+if(!require(scorecard)) install.packages("scorecard", repos = "http://cran.us.r-project.org")
 
 library(tidyverse)
 library(caret)
 library(scorecard)  # creates a scorecard
+library(installr)
 
 # Optimal Binning categorizes a numeric characteristic into bins 
 # for ulterior usage in scoring modeling.
-source_url("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/smbinning.R")  
+source.https("https://raw.githubusercontent.com/mrmelchi/Credit_Scoring/master/smbinning.R")  
 
 # using to solve 'Error in summary.connection(connection) : invalid connection'
 # https://stackoverflow.com/questions/25097729/un-register-a-doparallel-cluster
