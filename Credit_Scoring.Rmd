@@ -1,5 +1,5 @@
 ---
-title: "Credit Scoring"
+title: "Credit Scoring applied to special case"
 author: "Mario Melchiori"
 date: "23/5/2019"
 output:
