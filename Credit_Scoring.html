@@ -573,7 +573,7 @@ Figure 1.Utilising Historical Data to Predict Future Outcomes
 <li>Cutoff that maximize the sensibility, that is the ability of our model to correctly identify those debtors reclassified (true positive rate) but allowing a high the approval rate, is computed.</li>
 <li>Good of fit statistic and Statistical measures of discriminatory power are calculated.</li>
 </ul>
-<p>Logistic regression model is heavily researched. We do not include information about it, but you can try the following <a href="https://rafalab.github.io/dsbook/examples-of-algorithms.html#logistic-regression">link</a> for more information. Weight of evidence (WOE) and Information value (IV) are concepts less knowed, so below we develop a brief explanation about them.</p>
+<p>Logistic regression model is heavily researched. We do not include information about it, but you can try the following <a href="https://rafalab.github.io/dsbook/examples-of-algorithms.html#logistic-regression">link</a> for more details. Weight of evidence (WOE) and Information value (IV) are concepts less knowed, so below we develop a brief explanation about them.</p>
 <div id="weight-of-evidence-woe" class="section level3">
 <h3>Weight of Evidence (WOE)</h3>
 <p>Since this is a concept from credit scoring world, it is generally described as a measure of the separation of good and bad customers. “Bad Customers” refers to the customers who defaulted on a loan, in our case, reclassified a debt, and “Good Customers” refers to the customers who paid back loan, in our case, they did not reclassified.</p>
@@ -603,7 +603,7 @@ Figure 1.Utilising Historical Data to Predict Future Outcomes
 <p>It is because the categories with similar WOE have almost same proportion of reclassified and non-reclassified. In other words, the behavior of both the categories is same.</p>
 <p><span style="color:blue">Rules related to WOE</span></p>
 <ul>
-<li>Each category (bin) should have at least 5% of the observations. We relax this rule in this project.</li>
+<li>Each category (bin) should have at least 5% of the observations. We relax this rule in the present.</li>
 <li>Each category (bin) should be non-zero for both non-reclassified and reclassified.</li>
 <li>The WOE should be distinct for each category. Similar groups should be aggregated.</li>
 <li>The WOE should be monotonic, i.e. either growing or decreasing with the groupings.</li>
@@ -612,7 +612,7 @@ Figure 1.Utilising Historical Data to Predict Future Outcomes
 <p><span style="color:blue">Number of Bins (Groups)</span></p>
 <p>In general, 10 or 20 bins are taken. Ideally, each bin should contain at least 5% cases. The number of bins determines the amount of smoothing - the fewer bins, the more smoothing. If someone asks you ’ “why not to form 1000 bins?” The answer is the fewer bins capture important patterns in the data, while leaving out noise. Bins with less than 5% cases might not be a true picture of the data distribution and might lead to model instability.</p>
 <p><span style="color:blue">Handle Zero Event/ Non-Event</span></p>
-<p>If a particular bin contains no event or non-event, you can use the formula below to ignore missing WOE. We are adding 0.5 to the number of reclassified and non-reclassified in a group.</p>
+<p>If a particular bin contains no reclassified or non-reclassified, you can use the formula below to ignore missing WOE. We are adding 0.5 to the number of reclassified and non-reclassified in a group.</p>
 <p><span class="math display">\[\textrm{AdjustedWOE} = \log \left ( \frac{\frac{Number\; of\; non-reclassified\; in\; a \;group\; +\; 0.5}{Number\;  of \; non-reclassified}}{\frac{Number\; of\; reclassified\; in\; a \;group\; +\; 0.5}{Number\;  of \; reclassified}}\right )\]</span></p>
 <p><span style="color:blue">How to check correct binning with WOE</span></p>
 <ul>
@@ -645,8 +645,8 @@ Figure 1.Utilising Historical Data to Predict Future Outcomes
 <p>Information value is one of the most useful technique to select important variables in a predictive model. It helps to rank variables on the basis of their importance. The IV is calculated using the following formula :</p>
 <p><span class="math display">\[\textrm{IV} = \sum(\%\; of\; non\; reclassified \;-\; \% \;of\; reclassified \big) * WOE\]</span></p>
 </div>
-<div id="information-value-variable-predictiveness" class="section level4">
-<h4>Information Value Variable Predictiveness</h4>
+<div id="information-value---variable-predictiveness" class="section level4">
+<h4>Information Value - Variable Predictiveness</h4>
 <p>According to Siddiqi <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, by convention the values of the IV statistic in credit scoring can be interpreted as follows.</p>
 <table>
 <thead>
@@ -760,11 +760,11 @@ Figure 4. Population Stability Index (PSI)
 Figure 5. Results
 </p>
 </div>
-<p><strong>A standardized Report from scorecard package is available <a href="https://github.com/mrmelchi/Credit_Scoring/blob/master/report1_20190524_121745.xlsx"><strong>here</strong></a>. It contains dataset information, model coefficients, model performance, variable woe binning, scorecard, population stability and gains table</strong>.</p>
+<p><strong>A standardized Report from scorecard package is available <a href="https://github.com/mrmelchi/Credit_Scoring/blob/master/report1_20190524_121745.xlsx">here</a>. It contains dataset information, model coefficients, model performance, variable woe binning, scorecard, population stability and gains table</strong>.</p>
 </div>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
-<p>A bank is active in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low, but argentine banking regulator requires that under certain circumstances a bank must provisioning (charge a loss) to debtor paying in a timely manner the debt contracted but delay pays of debt with other bank. This become very expensive for the bank, so, the bank want avoid give a loan to whose can fall in this situation.</p>
+<p>The present work studies an bank actives in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low, but argentine banking regulator requires that under certain circumstances a bank must provisioning (charge a loss) to debtor paying in a timely manner the debt contracted but delay pays of debt with other bank. This become very expensive for the bank, so, the bank want avoid give a loan to whose can fall in this situation.</p>
 <p>The bank requiered us to design a model that predict if a debtor will be reclassified durant the next year.</p>
 <p>The bank also requires build a score system and pick a cutoff that reach a reclassified rate lesser than <strong>0.045</strong>, but allowing high approval rate.</p>
 <p>The data were provided by the bank. The bank only chose those debtors whose classification differs from their, but is not yet required to be reclassified for not fulfilling some of the three conditions set forth in the regulations. In short, data do not contains debtors that paying in time and form theirs debts in all financial system argentine neither debtors reclassified in T0 (Figure 1).</p>

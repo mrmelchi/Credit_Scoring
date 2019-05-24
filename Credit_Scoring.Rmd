@@ -181,7 +181,7 @@ The model is completed through the following steps:
 -  Cutoff that maximize the sensibility, that is the ability of our model to correctly identify those debtors reclassified (true positive rate) but allowing a high the approval rate, is computed.
 -  Good of fit statistic and Statistical measures of discriminatory power are calculated.
 
-Logistic regression model is heavily researched. We do not include information about it, but you can try the following [link](https://rafalab.github.io/dsbook/examples-of-algorithms.html#logistic-regression) for more information. Weight of evidence (WOE) and Information value (IV) are concepts less knowed, so below we develop a brief explanation about them. 
+Logistic regression model is heavily researched. We do not include information about it, but you can try the following [link](https://rafalab.github.io/dsbook/examples-of-algorithms.html#logistic-regression) for more details. Weight of evidence (WOE) and Information value (IV) are concepts less knowed, so below we develop a brief explanation about them. 
 
 ### Weight of Evidence (WOE)
 
@@ -219,7 +219,7 @@ It is because the categories with similar WOE have almost same proportion of rec
 
 <span style="color:blue">Rules related to WOE</span>
 
-- Each category (bin) should have at least 5% of the observations. We relax this rule in this project.
+- Each category (bin) should have at least 5% of the observations. We relax this rule in the present.
 - Each category (bin) should be non-zero for both non-reclassified and reclassified.
 - The WOE should be distinct for each category. Similar groups should be aggregated. 
 - The WOE should be monotonic, i.e. either growing or decreasing with the groupings.
@@ -231,7 +231,7 @@ In general, 10 or 20 bins are taken. Ideally, each bin should contain at least 5
 
 <span style="color:blue">Handle Zero Event/ Non-Event</span>
 
-If a particular bin contains no event or non-event, you can use the formula below to ignore missing WOE. We are adding 0.5 to the number of reclassified and non-reclassified in a group.
+If a particular bin contains no reclassified or non-reclassified, you can use the formula below to ignore missing WOE. We are adding 0.5 to the number of reclassified and non-reclassified in a group.
 
 $$\textrm{AdjustedWOE} = \log \left ( \frac{\frac{Number\; of\; non-reclassified\; in\; a \;group\; +\; 0.5}{Number\;  of \; non-reclassified}}{\frac{Number\; of\; reclassified\; in\; a \;group\; +\; 0.5}{Number\;  of \; reclassified}}\right )$$
 
@@ -258,7 +258,7 @@ Information value is one of the most useful technique to select important variab
 
 $$\textrm{IV} = \sum(\%\; of\; non\; reclassified \;-\; \% \;of\; reclassified \big) * WOE$$
 
-#### Information Value	Variable Predictiveness
+#### Information Value - Variable Predictiveness
 
 ```{r}
 iv <- data.frame('IV' = c('Less than 0.02', '0.02 to 0.1', '0.1 to 0.3', '0.3 to 0.5','>0.5'),
@@ -331,11 +331,11 @@ knitr::include_graphics("https://raw.githubusercontent.com/mrmelchi/Credit_Scori
 ```
 
 
-**A standardized Report from scorecard package is available [**here**](https://github.com/mrmelchi/Credit_Scoring/blob/master/report1_20190524_121745.xlsx). It contains dataset information, model coefficients, model performance, variable woe binning, scorecard, population stability and gains table**.
+**A standardized Report from scorecard package is available [here](https://github.com/mrmelchi/Credit_Scoring/blob/master/report1_20190524_121745.xlsx). It contains dataset information, model coefficients, model performance, variable woe binning, scorecard, population stability and gains table**.
 
 # Summary
 
-A  bank is active in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low, but argentine banking regulator requires that under certain circumstances a bank must provisioning (charge a loss)  to debtor paying in a timely manner the debt contracted but delay pays of debt with other bank. This become very expensive for the bank, so, the bank want avoid give a loan to whose can fall in this situation.
+The present work studies an bank actives in the loans with repayment through payroll deductions a employees of the state goverment. Those employees have legal job stability, so is very difficult that an employee is fired. Given both, job stability and the sure payment, the default probability is very low, but argentine banking regulator requires that under certain circumstances a bank must provisioning (charge a loss)  to debtor paying in a timely manner the debt contracted but delay pays of debt with other bank. This become very expensive for the bank, so, the bank want avoid give a loan to whose can fall in this situation.
 
 The bank requiered us to design a model that predict if a debtor will be reclassified durant the next year. 
 
