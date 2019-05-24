@@ -1,15 +1,3 @@
-remove.packages("Hmisc", lib="~/R/win-library/3.5")
-remove.packages("installr", lib="~/R/win-library/3.5")
-remove.packages("tidyverse", lib="~/R/win-library/3.5")
-remove.packages("rlang", lib="~/R/win-library/3.5")
-remove.packages("doParallel", lib="~/R/win-library/3.5")
-remove.packages("ResourceSelection", lib="~/R/win-library/3.5")
-remove.packages("devtools", lib="~/R/win-library/3.5")
-remove.packages("smbinning", lib="~/R/win-library/3.5")
-remove.packages("scorecard", lib="~/R/win-library/3.5")
-remove.packages("e1071", lib="~/R/win-library/3.5")
-remove.packages("glmnet", lib="~/R/win-library/3.5")
-
 ########################################################################################################
 #                                        Summary
 ########################################################################################################
